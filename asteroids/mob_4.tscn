@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://8woduathqbfr"]
+
+[ext_resource type="Script" path="res://mob_4.gd" id="1_rv36u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_27vlc"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_1q5p2"]
+
+[node name="Mob4" type="CharacterBody3D"]
+script = ExtResource("1_rv36u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_27vlc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("SphereMesh_1q5p2")

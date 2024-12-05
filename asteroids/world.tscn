@@ -1,0 +1,153 @@
+[gd_scene load_steps=23 format=3 uid="uid://cu6nmapinnymg"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_m0h3k"]
+[ext_resource type="PackedScene" uid="uid://bslp36txxgg4t" path="res://Player/Player.tscn" id="1_pij1n"]
+[ext_resource type="Texture2D" uid="uid://cxrn8af8vxmr" path="res://Cenário/NightSkyHDRI008_2K-TONEMAPPED.jpg" id="1_qcb2r"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="2_70eir"]
+[ext_resource type="PackedScene" uid="uid://cw324x47mwpoj" path="res://mob_2.tscn" id="5_5837x"]
+[ext_resource type="PackedScene" uid="uid://cwxn03ev0ttgj" path="res://mob.tscn" id="5_opbn5"]
+[ext_resource type="PackedScene" uid="uid://b7qon53ilfidf" path="res://mob_3.tscn" id="6_wl1ow"]
+[ext_resource type="PackedScene" uid="uid://8woduathqbfr" path="res://mob_4.tscn" id="7_innoh"]
+[ext_resource type="Script" path="res://score_label.gd" id="9_cnpma"]
+[ext_resource type="AudioStream" uid="uid://4spjayiitsb2" path="res://audio/shot.mp3" id="10_vc6r8"]
+[ext_resource type="AudioStream" uid="uid://blsew2y71qdea" path="res://audio/bangSmall.mp3" id="11_hvie3"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_rvde2"]
+panorama = ExtResource("1_qcb2r")
+
+[sub_resource type="Sky" id="Sky_ka1cx"]
+sky_material = SubResource("PanoramaSkyMaterial_rvde2")
+
+[sub_resource type="Environment" id="Environment_sulhs"]
+background_mode = 2
+sky = SubResource("Sky_ka1cx")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1mo28"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wmjci"]
+albedo_texture = ExtResource("1_qcb2r")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4v7qr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b7aww"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ec255"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i3ehk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6hu7n"]
+size = Vector3(30.8695, 7.01587, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4mspy"]
+size = Vector3(1, 7.97437, 33)
+
+[node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22346, -2.41667, -5.25967)
+script = ExtResource("1_m0h3k")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sulhs")
+
+[node name="Player" parent="." instance=ExtResource("1_pij1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+script = ExtResource("2_70eir")
+
+[node name="Colisao" type="Area3D" parent="Player"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.00159568, -0.0272641)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Colisao"]
+shape = SubResource("CapsuleShape3D_1mo28")
+
+[node name="Shot" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("10_vc6r8")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0149903, -0.0657173, 0.155434)
+material_override = SubResource("StandardMaterial3D_wmjci")
+size = Vector3(30, 1, 30)
+
+[node name="Mob2" parent="." instance=ExtResource("5_5837x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.83528, 2.66799, -12.7733)
+
+[node name="ColisaoMob2" type="Area3D" parent="Mob2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mob2/ColisaoMob2"]
+shape = SubResource("SphereShape3D_4v7qr")
+
+[node name="Mob3" parent="." instance=ExtResource("6_wl1ow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2339, 2.65775, -12.0924)
+
+[node name="ColisaoMob3" type="Area3D" parent="Mob3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mob3/ColisaoMob3"]
+shape = SubResource("SphereShape3D_b7aww")
+
+[node name="Mob4" parent="." instance=ExtResource("7_innoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79065, 2.36382, -12.5446)
+
+[node name="ColisaoMob4" type="Area3D" parent="Mob4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mob4/ColisaoMob4"]
+shape = SubResource("SphereShape3D_ec255")
+
+[node name="Mob" parent="." instance=ExtResource("5_opbn5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0329, 2.63712, -13.1432)
+
+[node name="ColisaoMob" type="Area3D" parent="Mob"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mob/ColisaoMob"]
+shape = SubResource("SphereShape3D_i3ehk")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0775528, 2.81126, -16.2501)
+shape = SubResource("BoxShape3D_6hu7n")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0775528, 2.63609, 15.2945)
+shape = SubResource("BoxShape3D_6hu7n")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.1201, 2.69256, 0.00933838)
+shape = SubResource("BoxShape3D_4mspy")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9081, 3.91485, 0.365536)
+shape = SubResource("BoxShape3D_4mspy")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 52.0
+offset_right = 163.0
+offset_bottom = 75.0
+text = "0"
+script = ExtResource("9_cnpma")
+
+[node name="MobDying" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_hvie3")
+
+[connection signal="mob" from="Player" to="." method="_on_player_mob"]
+[connection signal="mob" from="Player" to="Control/ScoreLabel" method="_on_player_mob"]
+[connection signal="mob2" from="Player" to="." method="_on_player_mob_2"]
+[connection signal="mob2" from="Player" to="Control/ScoreLabel" method="_on_player_mob_2"]
+[connection signal="mob3" from="Player" to="." method="_on_player_mob_3"]
+[connection signal="mob3" from="Player" to="Control/ScoreLabel" method="_on_player_mob_3"]
+[connection signal="mob4" from="Player" to="." method="_on_player_mob_4"]
+[connection signal="mob4" from="Player" to="Control/ScoreLabel" method="_on_player_mob_4"]
+[connection signal="body_entered" from="Player/Colisao" to="." method="_on_colisao_body_entered"]
+[connection signal="body_entered" from="Mob2/ColisaoMob2" to="." method="_on_colisao_mob_2_body_entered"]
+[connection signal="body_entered" from="Mob3/ColisaoMob3" to="." method="_on_colisao_mob_3_body_entered"]
+[connection signal="body_entered" from="Mob4/ColisaoMob4" to="." method="_on_colisao_mob_4_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
